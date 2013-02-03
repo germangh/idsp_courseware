@@ -1,0 +1,148 @@
+\documentclass[a4paper,11pt,oneside]{article}
+
+\usepackage{amsmath,amssymb,epsfig}
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+\usepackage{url}
+\usepackage{subfigure}
+%\addtolength{\voffset}{-.5cm}
+%\addtolength{\hoffset}{-.5cm}
+\setlength{\parindent}{0in}
+%\addtolength{\textwidth}{.5cm}
+%\addtolength{\textheight}{.51cm}
+\addtolength{\parskip}{.5cm}
+
+% Example definitions.
+% --------------------
+\def\x{{\mathbf x}}
+\def\X{{\mathbf X}}
+\def\u{{\mathbf u}}
+\def\U{{\mathbf U}}
+\def\x{{\mathbf x}}
+\def\s{{\mathbf s}}
+\def\A{{\mathbf A}}
+\def\y{{\mathbf y}}
+\def\W{{\mathbf W}}
+\def\w{{\mathbf w}}
+\def\B{{\mathbf B}}
+\def\D{{\mathbf D}}
+\def\a{{\mathbf a}}
+\def\D{{\mathbf D}}
+\def\P{{\mathbf P}}
+\def\n{{\mathbf n}}
+\def\V{{\mathbf V}}
+\def\R{{\mathbf R}}
+\def\I{{\mathbf I}}
+\def\M{{\mathbf M}}
+\def\sech{{\mathrm{sech}}}
+\def\L{{\cal L}}
+\def\Cum{{\rm{Cum}}}
+\def\var{{\rm{var}}}
+\def\T{{\mathbf T}}
+\def\C{{\mathbf C}}
+\def\tf{{\emph{t-f}}}
+
+
+% Title.
+% ------
+\title{Inverse Z transform: Example 2 (complex poles)}
+%
+% Author and date.
+% ---------------
+\date{\today}
+\author{Germ\'an G\'omez-Herrero, \url{http://germangh.com}}
+
+
+
+\begin{document}
+\maketitle
+
+Given the following system function of a causal LTI system:
+
+\begin{equation}\label{eq:systemfunction}
+H(z)=\frac{z^{-3}}{(1-2z^{-3})(1-0.5z^{-1})}
+\end{equation}
+
+find the impulse response of the system.
+
+\vspace{1cm}
+
+\textbf{SOLUTION:}
+
+The denominator of $H(z)$ is a fourth order polynomial, which means that it will have four roots, i.e. our system function has four poles. Obvioulsy, one pole is located in $p_1=0.5$. The poles $p_2$, $p_3$ and $p_4$ are the roots of the polynomial $(1-2z^{-3})$. Finding the roots of third order polynomial can be tricky but in this case, we can easily find one of its roots (that is pole $p_2$):
+
+\[
+1-2z^{-3} = 0 \Rightarrow z^{-3}=\frac{1}{2}  \Rightarrow p_{2}=(2)^{\frac{1}{3}}=\sqrt[3]{2}
+\]
+
+and therefore, we can factorize the term $1-2z^{-3}$ as:
+
+\[
+(1-2z^{-3})=(1-\sqrt[3]{2}z^{-1})Q(z)
+\]
+
+where $Q(z)=\frac{(1-2z^{-3})}{(1-\sqrt[3]{2}z^{-1})}$ must be a second-order polynomial. In order to find $Q(z)$ we use long division:
+
+\begin{tabular}{r|cllll}
+&\qquad& $\sqrt[3]{4}z^{-2}$ & $+\sqrt[3]{2}z^{-1}$ & $+1$&\\
+\cline{2-6}
+\\
+$-\sqrt[3]{2}z^{-1}+1$ && $-2z^{-3}$ & $+0z^{-2}$&$+0z^{-1}$&$+1$\\
+&& $-2z^{-3}$ & $+\sqrt[3]{4}z^{-2}$&&\\
+\cline{3-6}\\
+&&&$-\sqrt[3]{4}z^{-2}$&$+0z^{-1}$&$+1$\\
+&&&$-\sqrt[3]{4}z^{-2}$&$+\sqrt[3]{2}z^{-1}$&\\
+\cline{4-6}\\
+&&&&$-\sqrt[3]{2}z^{-1}$&$+1$\\
+&&&&$-\sqrt[3]{2}z^{-1}$&$+1$\\
+\cline{5-6}\\
+&&&&&$0$\\
+\end{tabular}
+
+As expected, the remainder of the division is zero and $Q(z)=\sqrt[3]{4}z^{-2}+\sqrt[3]{2}z^{-1}+1$ is a second degree polynomial. Now, we can easily find the two roots of $Q(z)$, which will correspond to the two remaining poles $p_3$ and $p_4$. By making the variable change $x=z^{-1}$ we find that:
+
+\[
+\sqrt[3]{4}x^{2}+\sqrt[3]{2}x+1=0 \Rightarrow x = \frac{-\sqrt[3]{2}\pm j\sqrt{3}\sqrt[6]{4}}{2\sqrt[3]{4}}
+\]
+
+and then by reversing the variable change ($z=x^{-1}$) we obtain that the two poles that we were looking for are:
+
+\[
+\begin{array}{lllll}
+p_3&=& \frac{2\sqrt[3]{4}}{-\sqrt[3]{2}+ j\sqrt{3}\sqrt[6]{4}}=-0.63-1.09j\\
+p_4&=& \frac{2\sqrt[3]{4}}{-\sqrt[3]{2}- j\sqrt{3}\sqrt[6]{4}}=-0.63+1.09j\\
+\end{array}
+\]
+
+Always, when a fractional Z-transform has complex poles they will be in conjugate pairs, i.e. $p_4=p_3^*$ in this case. So we can write the system function in Eq.~\ref{eq:systemfunction} as:
+
+\[
+H(z)=\frac{z^{-3}}{(1-p_1z^{-1})(1-p_2z^{-1})(1-p_3z^{-1})(1-p_3^*z^{-1})} \qquad ROC \equiv |z|>\sqrt[3]{2}
+\]
+
+Because the system is causal, the ROC of $H(z)$ must be the region outside the circunference in which the largest (in absolute value) pole is located. Now, using fractional expansion:
+
+\[
+H(z) =  \frac{A}{1-p_1z^{-1}}+\frac{B}{1-p_2z^{-1}}+\frac{C}{1-p_3z^{-1}}+\frac{C^*}{1-p_3^*z^{-1}}
+\]
+
+where $p_1=0.5$, $p_2=\sqrt[3]{2}=1.26$ and $p_3=-0.63-1.09j$ and the residuals are:
+
+\begin{equation}
+\begin{array}{lllll}
+A &=& \left.\left[(1-p_1z^{-1})H(z)\right]\right|_{z=p_1}&=&-0.53\\
+B &=& \left.\left[(1-p_2z^{-1})H(z)\right]\right|_{z=p_2}&=&0.28\\
+C &=& \left.\left[(1-p_3z^{-1})H(z)\right]\right|_{z=p_3}&=&0.13+0.04j\\
+\end{array}
+\end{equation}
+
+Now we can finally invert $H(z)$ taking into account that all the poles correspond to causal components of the system:
+
+\begin{equation}\label{impulse}
+h[n] = (0.5)^3\cdot\left[A(p_1)^n+B(p_2)^n\mu[n]+C(p_3)^n\mu[n]+C^*(p_3^*)^n\mu[n]\right]
+\end{equation}
+
+
+Exercise: try to express the equation above using only real terms. You can do it by writting $C$ and $p_3$ in polar form.
+
+\end{document}

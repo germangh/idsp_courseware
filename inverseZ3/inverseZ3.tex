@@ -1,0 +1,85 @@
+\documentclass[a4paper,11pt,oneside]{article}
+
+\usepackage{amsmath,amssymb,epsfig}
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+\usepackage{url}
+\usepackage{subfigure}
+%\addtolength{\voffset}{-.5cm}
+%\addtolength{\hoffset}{-.5cm}
+\setlength{\parindent}{0in}
+%\addtolength{\textwidth}{.5cm}
+%\addtolength{\textheight}{.51cm}
+\addtolength{\parskip}{.5cm}
+
+% Example definitions.
+% --------------------
+\def\x{{\mathbf x}}
+\def\X{{\mathbf X}}
+\def\u{{\mathbf u}}
+\def\U{{\mathbf U}}
+\def\x{{\mathbf x}}
+\def\s{{\mathbf s}}
+\def\A{{\mathbf A}}
+\def\y{{\mathbf y}}
+\def\W{{\mathbf W}}
+\def\w{{\mathbf w}}
+\def\B{{\mathbf B}}
+\def\D{{\mathbf D}}
+\def\a{{\mathbf a}}
+\def\D{{\mathbf D}}
+\def\P{{\mathbf P}}
+\def\n{{\mathbf n}}
+\def\V{{\mathbf V}}
+\def\R{{\mathbf R}}
+\def\I{{\mathbf I}}
+\def\M{{\mathbf M}}
+\def\sech{{\mathrm{sech}}}
+\def\L{{\cal L}}
+\def\Cum{{\rm{Cum}}}
+\def\var{{\rm{var}}}
+\def\T{{\mathbf T}}
+\def\C{{\mathbf C}}
+\def\tf{{\emph{t-f}}}
+
+
+% Title.
+% ------
+\title{Inverse Z transform: Example 3 (directly invertible)}
+%
+% Author and date.
+% ---------------
+\date{\today}
+\author{Germ\'an G\'omez-Herrero, \url{http://germangh.com}}
+
+
+
+\begin{document}
+\maketitle
+
+Given the following system function of a causal system:
+
+\begin{equation}\label{eq:Yz}
+H(z)=\frac{-5-3z+2z^{-1}}{1-2z^{-1}} \qquad \textrm{ROC}\equiv |z|>2 
+\end{equation}
+
+Find the impulse response $h[n]$ of the system.
+
+
+\vspace{1cm}
+
+\textbf{SOLUTION:}
+
+Although the numerator of $H(z)$ is a polynomial of greater degree than the denominator you do not need to perform long division. You should notice that this Z-transform is already directly invertible using the shifting property of the Z-transform (without needing to compute residuals or long division):
+
+\[
+H(z)=-5\underbrace{\frac{1}{1-2z^{-1}}}_{G(z)}-3z\underbrace{\frac{1}{1-2z^{-1}}}_{G(z)}+2z^{-1}\underbrace{\frac{1}{1-2z^{-1}}}_{G(z)}
+\]
+
+So we finally obtain that:
+
+\begin{equation}\label{eq:yn}
+h[n] = -5(2)^n\mu[n]-3(2)^{n+1}\mu[n+1]+2(2)^{n-1}\mu[n-1]
+\end{equation}
+
+\end{document}
