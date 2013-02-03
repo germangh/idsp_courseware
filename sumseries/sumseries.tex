@@ -1,0 +1,86 @@
+\documentclass[a4paper,11pt,oneside]{article}
+
+\usepackage{amsmath,amssymb,epsfig}
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+\addtolength{\textwidth}{.5cm}
+
+% Example definitions.
+% --------------------
+\def\x{{\mathbf x}}
+\def\X{{\mathbf X}}
+\def\u{{\mathbf u}}
+\def\U{{\mathbf U}}
+\def\x{{\mathbf x}}
+\def\s{{\mathbf s}}
+\def\A{{\mathbf A}}
+\def\y{{\mathbf y}}
+\def\W{{\mathbf W}}
+\def\w{{\mathbf w}}
+\def\B{{\mathbf B}}
+\def\a{{\mathbf a}}
+\def\D{{\mathbf D}}
+\def\P{{\mathbf P}}
+\def\n{{\mathbf n}}
+\def\V{{\mathbf V}}
+\def\R{{\mathbf R}}
+\def\I{{\mathbf I}}
+\def\M{{\mathbf M}}
+\def\sech{{\mathrm{sech}}}
+\def\L{{\cal L}}
+\def\Cum{{\rm{Cum}}}
+\def\var{{\rm{var}}}
+\def\T{{\mathbf T}}
+\def\C{{\mathbf C}}
+\def\tf{{\emph{t-f}}}
+
+
+% Title.
+% ------
+\title{Sums of some infinite series}
+%
+% Author and date.
+% ---------------
+\author{SGN-1156 Signal Processing Techniques
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{Geometric series.} If $a\in\Re$ and $r\in\Re$, a geometric series $\{x_{n}\} = \{a,ar,ar^2,...,ar^n,...\}$ converges if and only if $|r|<1$ and then its sum is:
+\begin{equation} \sum_{n=0}^{\infty}x_{n}=\sum_{n=0}^{\infty}ar^{n}=\lim_{n\rightarrow\infty} a\frac{1-r^{n+1}}{1-r}=\frac{a}{1-r}
+\end{equation}
+
+\vspace{1cm}
+
+\noindent\textbf{Telescopic series.} Given a series $\{a_{n}\}$ we say that the series $\{x_{n}\}=\{a_{n}-a_{n+1}\}$ is a telescopic series. Then, $\{x_{n}\}$ is convergent if and only if $\lim_{n\rightarrow\infty}a_{n}$ is finite. In that case, the sum of $\{x_{n}\}$ is:
+
+\begin{equation}
+\sum_{n=1}^{\infty}x_{n} = \sum_{n=1}^{\infty}\left(a_{n}-a_{n+1}\right)=a_1-\lim_{n\rightarrow\infty}a_{n}
+\end{equation}
+
+\vspace{1cm}
+
+\noindent\textbf{Arithmetic-geometric series.} Given $a,b,r\in\Re$ we say that the series $\{x_{n}\}$ is arithmetic-geometric if $\{x_{n}\}=\{a,(a+b)r,(a+2b)r^2,...,(a+nb)r^n,...\}$. Such series are convergent if and only if $|r|<1$ and, in that case, their sum is:
+
+\begin{equation}
+\sum_{n=0}^{\infty}x_{n}=\sum_{n=0}^{\infty}(a+nb)r^n=\frac{a(1-r)+br}{(1-r)^2}
+\end{equation}
+
+\vspace{1cm}
+
+\noindent\textbf{Hypergeometric series.} We say that a series $\{x_n\}$ is hypergeometric if:
+
+\begin{equation}
+\frac{x_{n+1}}{x_n}=\frac{an+b}{an+c}
+\end{equation}
+
+\noindent where $a,b,c\in\Re$ and $a\neq 0$. This type of series converges if and only if $\frac{(c-b)}{a}>1$ and, in that case, its sum is:
+
+\begin{equation}
+\sum_{n=1}^{\infty}x_{n}=\frac{-x_{1}c}{a+b-c}
+\end{equation}
+
+\end{document}
