@@ -1,0 +1,298 @@
+\documentclass[a4paper,11pt,oneside]{article}
+
+\usepackage{amsmath,amssymb,epsfig}
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+\usepackage{url}
+\usepackage{subfigure}
+\addtolength{\voffset}{-1cm}
+\addtolength{\hoffset}{-1cm}
+\setlength{\parindent}{0in}
+\addtolength{\textwidth}{1.8cm}
+\addtolength{\textheight}{1cm}
+\addtolength{\parskip}{.5cm}
+
+
+% Example definitions.
+% --------------------
+\def\x{{\mathbf x}}
+\def\X{{\mathbf X}}
+\def\u{{\mathbf u}}
+\def\U{{\mathbf U}}
+\def\x{{\mathbf x}}
+\def\s{{\mathbf s}}
+\def\A{{\mathbf A}}
+\def\y{{\mathbf y}}
+\def\W{{\mathbf W}}
+\def\w{{\mathbf w}}
+\def\B{{\mathbf B}}
+\def\D{{\mathbf D}}
+\def\a{{\mathbf a}}
+\def\D{{\mathbf D}}
+\def\P{{\mathbf P}}
+\def\n{{\mathbf n}}
+\def\V{{\mathbf V}}
+\def\R{{\mathbf R}}
+\def\I{{\mathbf I}}
+\def\M{{\mathbf M}}
+\def\sech{{\mathrm{sech}}}
+\def\L{{\cal L}}
+\def\Cum{{\rm{Cum}}}
+\def\var{{\rm{var}}}
+\def\T{{\mathbf T}}
+\def\C{{\mathbf C}}
+\def\tf{{\emph{t-f}}}
+
+
+% Title.
+% ------
+\title{Finite-Length Discrete Transforms}
+
+%
+% Author and date.
+% ---------------
+\date{\today}
+\author{Germ\'an G\'omez-Herrero, \url{http://germangh.com}}
+
+
+
+
+\begin{document}
+\maketitle
+
+\textbf{NOTE:} This document is a brief summary (a cheatsheet, actually) of Chapter 5 from the textbook \emph{Digital Signal Processing}, by S. K. Mitra. 
+
+
+
+\begin{itemize}
+\item The N-point DFT of a sequence $x[n]$ is defined as:
+
+\begin{equation} \label{DFT}
+X[k] = \sum_{n=0}^{N-1}x[n]e^{-j\frac{2\pi}{N}kn}=\sum_{n=0}^{N-1}x[n]W_{N}^{kn} \qquad 0\leq k \leq N-1
+\end{equation}
+
+where $W_{N}=e^{-j\frac{2\pi}{N}}$
+
+\item The N-point inverse DFT (IDFT) of a sequence $X[k]$ is defined as:
+
+
+\begin{equation} \label{IDFT}
+x[n] = \frac{1}{N}\sum_{k=0}^{N-1}X[k]W_{N}^{-kn} \qquad 0\leq n \leq N-1
+\end{equation}
+
+\item The N-point DFT of a sequence $x[n]$ of length $L<N$ can be obtained by zero-padding the sequence $x[n]$ until it has the desired length of N samples. That is:
+
+\[
+\textrm{DFT}_{N}\{x[n]\}=\textrm{DFT}_{N}\{x_{zp}[n]\}
+\]
+
+where
+
+\[
+x_{zp}[n]=\left\{
+\begin{array}{ll}
+x[n] & \textrm{if} \quad 0 \leq n \leq L-1\\
+0 & \textrm{if} \quad L \leq n \leq N\\ 
+\end{array}
+\right.
+\]
+
+\item Whenever computing DTFs or IDFTs it is useful to remember that:
+
+\begin{equation}
+\sum_{n=0}^{N-1}W_{N}^{An}=\left\{
+\begin{array}{ll}
+N & \textrm{if} \quad A = rN \quad \textrm{with} \quad r \quad \textrm{an integer}\\
+0 & \textrm{otherwise}\\
+\end{array}
+\right.
+\end{equation}
+
+
+\item The DFT can also be expressed in matrix form like:
+
+\begin{equation}
+\X = \D_{N}\x
+\end{equation}
+
+where 
+
+\[
+\begin{array}{lll}
+\X &=& \left[X[0],X[1],...,X[N-1]\right]^{T}\\
+\x &=& \left[x[0],x[1],...,x[N-1]\right]^{T}\\
+\end{array}
+\]
+
+and $\D_{N}$ is the $N\times N$ DFT matrix given by:
+
+\begin{equation}
+\D_{N}=\left[ 
+\begin{array}{lllll}
+1 & 1 & 1 & 1 & 1\\
+1 & W_{N}^{1}& W_{N}^{2} & \cdots & W_{N}^{(N-1)} \\ 
+1 & W_{N}^{2}& W_{N}^{4} & \cdots & W_{N}^{2(N-1)} \\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+1 & W_{N}^{(N-1)}& W_{N}^{2(N-1)} & \cdots & W_{N}^{(N-1)^{2}} \\
+\end{array}
+\right]
+\end{equation}
+
+
+\item Equivalently, the inverse DFT (IDFT) can be expressed in matrix form:
+
+\begin{equation}
+\x = \D_{N}^{-1}\X
+\end{equation}
+
+where:
+
+\begin{equation}
+\D_{N}^{-1}=\frac{1}{N}\D_{N}^{*}=\frac{1}{N}\left[ 
+\begin{array}{lllll}
+1 & 1 & 1 & 1 & 1\\
+1 & W_{N}^{-1}& W_{N}^{-2} & \cdots & W_{N}^{-(N-1)} \\ 
+1 & W_{N}^{-2}& W_{N}^{-4} & \cdots & W_{N}^{-2(N-1)} \\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+1 & W_{N}^{-(N-1)}& W_{N}^{-2(N-1)} & \cdots & W_{N}^{-(N-1)^{2}} \\
+\end{array}
+\right]
+\end{equation}
+
+\item An important operator when working with DTFs is the \emph{modulo} operator. This operator is denoted by $<a>_{b}=c$, which reads as ''$c$ \emph{is equal to} $a$ \emph{modulo} $b$''. This operator works differently depending whether $a$ is a positive or negative integer.
+
+\[
+<a>_{b}=\left\{
+\begin{array}{ll}
+a-\left\lfloor\frac{a}{b}\right\rfloor b & \textrm{if} \quad a>0\\
+\left\lceil\frac{|a|}{b}\right\rceil b + a & \textrm{if} \quad a<0\\
+\end{array}
+\right.
+\]
+
+where $\left\lfloor\cdot\right\rfloor$ and $\left\lceil\cdot\right\rceil$ denote the \emph{floor} and \emph{ceiling} functions, respectively. For instance:
+
+\[
+\begin{array}{lll}
+<10>_{4} &=&10-\left\lfloor\frac{10}{4}\right\rfloor \cdot 4 = 10 - 2\cdot 4 = 2\\
+<-5>_{3} &=& \left\lceil\frac{|-5|}{3}\right\rceil\cdot 3 + (-5) = 2\cdot 3 + (-5) = 1\\
+\end{array}
+\]
+
+\item The \emph{circular} convolution can be defined using the \emph{modulo} operator:
+
+\begin{equation}
+g[n]\stackrel{N}{\otimes}h[n]=\sum_{m=0}^{N-1}g[m]h[<n-m>_{N}] \qquad 0\leq n\leq N-1
+\end{equation}
+
+\item The DFT has several symmetry properties that can greatly simplify the computation of the DFT:
+
+\vspace{1cm}
+\begin{tabular}{cc}
+\hline
+Length-N sequence & N-point DFT\\
+\hline
+$x[n]$ & $X[k]$\\
+$x^{*}[n]$ & $X^*\left[<-k>_{N}\right]$\\
+Re$\{x[n]\}$& $X_{ccs}[k]=\frac{1}{2}\left[X\left[k\right]+X^*\left[<-k>_{N}\right]\right]$\\
+$j\cdot \textrm{Im}\{x[n]\}$& $X_{cca}[k]=\frac{1}{2}\left[X\left[k\right]-X^*\left[<-k>_{N}\right]\right]$\\
+$x_{ccs}[n]=\frac{1}{2}\left[x\left[n\right]+x^*\left[<-n>_{N}\right]\right]$&Re$\{X[k]\}$\\
+$x_{cca}[n]=\frac{1}{2}\left[x\left[n\right]-x^*\left[<-n>_{N}\right]\right]$&$j\cdot\textrm{Im}\{X[k]\}$\\
+\hline
+\end{tabular}
+\vspace{1cm}
+
+\item Furthermore, if $x[n]$ is a length-N real sequence then the corresponding N-point DFT has the additional symmetry properties:
+
+\[
+\begin{array}{ccc}
+X[k] &=& X^*[<-k>_{N}]\\
+\textrm{Re}\{X[k]\}&=&\textrm{Re}\{X[<-k>_{N}]\}\\
+\textrm{Im}\{X[k]\}&=&-\textrm{Im}\{X[<-k>_{N}]\}\\
+\left|X[k]\right|&=&\left|X[<-k>_N]\right|\\
+\textrm{arg}\{X[k]\}&=&-\textrm{arg}\{X[<-k>_{N}]\}\\
+\end{array}
+\]
+
+\item The following theorems are also very useful when computing the DFT of a length-N sequence:
+
+\vspace{1cm}
+\begin{tabular}{cc}
+\hline
+Length-N sequence & N-point DFT\\
+\hline
+$g[n]$ & $G[k]$\\
+$h[n]$ & $H[K]$\\
+\hline
+$\alpha g[n] + \beta h[n]$ & $\alpha G[k] + \beta H[k]$\\
+$g[<n-n_{0}>_{N}]$ & $W_{N}^{kn_{0}}G[k]$\\
+$W_{N}^{-k_{0}n}g[n]$ & $G[<k-k_0>_N]$\\
+$g[n]\stackrel{N}{\otimes}h[n]$ & $G[k]H[k]$\\
+$g[n]h[n]$ & $\frac{1}{N}G[k]\stackrel{N}{\otimes}H[k]$\\
+\hline
+\end{tabular}
+\vspace{1cm}
+
+\item The Parseval's relation can be also useful, specially when we want to compute the energy of a sequence $g[n]$ that has a DFT $G[k]$:
+
+\[
+\sum_{n=0}^{N-1}|g[n]|^2=\frac{1}{N}\sum_{k=0}^{N-1}|G[k]|^2
+\]
+
+\item The circular convolution of two sequences $g[n]$ and $h[n]$ can be computed using the DFT:
+
+\[
+\left.
+\begin{array}{lll}
+g[n]&\stackrel{DFT}{\rightarrow}&G[k]\\
+h[n]&\stackrel{DFT}{\rightarrow}&H[k]\\
+\end{array}
+\right\}
+\Longrightarrow g[n]\stackrel{N}{\otimes}h[n]=\textrm{IDFT}\left\{G[k]H[k]\right\}
+\]
+
+
+\item The linear convolution of a length-$L_{x}$ sequence $x[n]$ and a length-$L_y$ sequence $y[n]$ can also be computed using the DFT:
+
+\[
+x[n]\otimes y[n]=x[n]\stackrel{N}{\otimes}y[n]=\textrm{IDFT}\left\{\textrm{DFT}_{N}\left\{x[n]\right\}\textrm{DFT}_{N}\left\{x[n]\right\}\right\}
+\]
+
+where $N=L_x+L_y-1$.
+
+\item The DFTs of two length-$N$ real sequences $g[n]$ and $h[n]$ can be computed using the DFT of a single complex sequence $x[n]=g[n]+jh[n]$:
+
+\[
+\left.
+\begin{array}{lll}
+g[n]&\stackrel{DFT}{\rightarrow}&G[k]\\
+h[n]&\stackrel{DFT}{\rightarrow}&H[k]\\
+x[n]&\stackrel{DFT}{\rightarrow}&X[k]\\
+\end{array}
+\right\}
+\Longrightarrow 
+\left\{
+\begin{array}{lll}
+G[k] &=& \frac{1}{2}\left[X[k]+X^*[<-k>_{N}]\right]\\
+H[k] &=& \frac{1}{2j}\left[X[k]-X^*[<-k>_{N}]\right]\\
+\end{array}
+\right.
+\]
+
+
+\end{itemize}
+
+
+
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=.5\textwidth]{fig3.eps}
+%\caption{Two ways of cascading and up-sampler and a down-sampler.}
+%\label{fig3}
+%\end{figure}
+
+
+
+
+\end{document}
