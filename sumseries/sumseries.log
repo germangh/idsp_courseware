@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=latex 2013.2.3)  3 FEB 2013 16:51
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=latex 2013.2.3)  3 FEB 2013 17:00
 entering extended mode
 **sumseries.tex
 
@@ -147,6 +147,10 @@ File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ae\aecompl.sty"
 Package: aecompl 1998/07/23 0.9 T1 Complements for AE fonts (D. Roegel)
 )
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ltxmisc\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
 ("C:\Users\gomez\Documents\My Dropbox\work\repo\idsp_courseware\sumseries\sumse
 ries.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
@@ -170,6 +174,11 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 50.
 ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
+LaTeX Font Info:    Try loading font information for T1+aett on input line 50.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ae\t1aett.fd"
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
 Overfull \hbox (39.91121pt too wide) in paragraph at lines 52--53
 []\T1/aer/bx/n/10.95 Geometric se-ries. \T1/aer/m/n/10.95 If $\OML/cmm/m/it/10.
 95 a \OMS/cmsy/m/n/10.95 2 <$ \T1/aer/m/n/10.95 and $\OML/cmm/m/it/10.95 r \OMS
@@ -185,12 +194,12 @@ sy/m/n/10.95 f\OML/cmm/m/it/10.95 a; ar; ar[]; :::; ar[]; :::\OMS/cmsy/m/n/10.9
 ("C:\Users\gomez\Documents\My Dropbox\work\repo\idsp_courseware\sumseries\sumse
 ries.aux") ) 
 Here is how much of TeX's memory you used:
- 1725 strings out of 495270
- 20309 string characters out of 3179672
- 68395 words of memory out of 3000000
- 4939 multiletter control sequences out of 15000+200000
- 16602 words of font info for 43 fonts, out of 3000000 for 9000
+ 1821 strings out of 495270
+ 21615 string characters out of 3179672
+ 69395 words of memory out of 3000000
+ 5027 multiletter control sequences out of 15000+200000
+ 16923 words of font info for 44 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 32i,6n,24p,306b,199s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 32i,7n,24p,306b,341s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sumseries.dvi (1 page, 4348 bytes).
+Output written on sumseries.dvi (1 page, 4388 bytes).
