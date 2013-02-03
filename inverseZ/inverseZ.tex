@@ -1,0 +1,260 @@
+\documentclass[a4paper,12pt,oneside]{article}
+
+\usepackage{amsmath,amssymb,epsfig}
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+\usepackage{url}
+\usepackage{subfigure}
+%\addtolength{\voffset}{-.5cm}
+%\addtolength{\hoffset}{-.5cm}
+\setlength{\parindent}{0in}
+%\addtolength{\textwidth}{.5cm}
+%\addtolength{\textheight}{.51cm}
+\addtolength{\parskip}{.5cm}
+
+% Example definitions.
+% --------------------
+\def\x{{\mathbf x}}
+\def\X{{\mathbf X}}
+\def\u{{\mathbf u}}
+\def\U{{\mathbf U}}
+\def\x{{\mathbf x}}
+\def\s{{\mathbf s}}
+\def\A{{\mathbf A}}
+\def\y{{\mathbf y}}
+\def\W{{\mathbf W}}
+\def\w{{\mathbf w}}
+\def\B{{\mathbf B}}
+\def\D{{\mathbf D}}
+\def\a{{\mathbf a}}
+\def\D{{\mathbf D}}
+\def\P{{\mathbf P}}
+\def\n{{\mathbf n}}
+\def\V{{\mathbf V}}
+\def\R{{\mathbf R}}
+\def\I{{\mathbf I}}
+\def\M{{\mathbf M}}
+\def\sech{{\mathrm{sech}}}
+\def\L{{\cal L}}
+\def\Cum{{\rm{Cum}}}
+\def\var{{\rm{var}}}
+\def\T{{\mathbf T}}
+\def\C{{\mathbf C}}
+\def\tf{{\emph{t-f}}}
+
+
+% Title.
+% ------
+\title{Inverse Z transform: Example 1 (multiple and single poles)}
+%
+% Author and date.
+% ---------------
+\date{\today}
+\author{Germ\'an G\'omez-Herrero, \url{http://germangh.com}}
+
+
+
+\begin{document}
+\maketitle
+
+Given:
+
+\[ 
+X(z)=\frac{2-\frac{9}{4}z^{-1}-\frac{5}{2}z^{-2}+\frac{59}{16}z^{-3}-\frac{3}{2}z^{-4}+\frac{3}{16}z^{-5}}{1-\frac{5}{4}z^{-1}+\frac{1}{2}z^{-2}-\frac{1}{16}z^{-3}}
+\]
+
+having a ROC $\frac{1}{2}>|z|>\frac{1}{4}$, find the inverse Z transform (Hint: $X(\frac{1}{4})=\infty$).
+
+\vspace{1cm}
+
+\textbf{SOLUTION:}
+
+\emph{NOTE: If during the exam you have to invert a rational Z-transform having as denominator a polynomial in $z^{-1}$ of order $N>2$ (like in this case) you will have as hint the value of at least $N-2$ poles. The reason is that finding the roots of a polynomial of order greater than 2 can be quite tricky without the help of MATLAB or a similar mathematical software.}
+
+In order to invert the given Z-transform we have to manipulate the expression of $X(z)$ so that it becomes a linear combination of terms like those in Table~\ref{commonz}.
+
+\begin{table}
+\centering
+\begin{tabular}{ccc}
+\hline
+Sequence & Z-transform & ROC\\
+\hline
+$\delta[n]$ & 1 & $\forall z$\vspace{.2cm}\\
+$\alpha^n\mu[n]$ &  $\frac{1}{1-\alpha z^{-1}}$ & $|z|>|\alpha|$\vspace{.2cm}\\
+$-(\alpha)^{n}\mu[-n-1]$ & $\frac{1}{1-\alpha z^{-1}}$ & $|z|<|\alpha|$\vspace{.2cm}\\
+$n \alpha^n \mu[n]$ & $\frac{\alpha z^{-1}}{(1-\alpha z^{-1})^2}$ & $|z|>|\alpha|$\vspace{.2cm}\\
+$-n\alpha^n \mu[-n-1]$ & $\frac{\alpha z^{-1}}{(1-\alpha z^{-1})^2}$ & $|z|<|\alpha|$\vspace{.2cm}\\
+\hline
+\end{tabular}
+\caption{Common Z-transform pairs.}
+\label{commonz}
+\end{table}
+
+Because the order of the denominator $N=3$ is not greater than the order of the numerator ($M=5$) the first thing that we could do is to express $X(z)$ as:
+
+\begin{equation}\label{longdivision}
+X(z)=\frac{B(z)}{A(z)}=Q(z)+\frac{R(z)}{A(z)}
+\end{equation} 
+
+where $Q(z)$ is the \emph{quotient} and $R(z)$ the \emph{remainder} of the long division of $B(z)$ into $A(z)$. An alternative possibility to using long division would be to denote $G(z)=\frac{1}{A(z)}$ and express $X(z)$ as:
+
+\[
+X(z) = 2G(z)-\frac{9}{4}z^{-1}G(z)-\frac{5}{2}z^{-2}G(z)+\frac{59}{16}z^{-3} G(z)-\frac{3}{2}z^{-4}G(z)+\frac{3}{16}z^{-5}G(z)
+\]
+
+and then using the linearity and shifting property of the Z-transform we could express the inverse Z-transform of $X(z)$ in terms of the inverse Z-transform of $G(z)$, denoted below by $g[n]$:
+
+\[
+x[n] = 2g[n]-\frac{9}{4}g[n-1]-\frac{5}{2}g[n-2]+\frac{59}{16}g[n-3]-\frac{3}{2}g[n-4]+\frac{3}{16}g[n-5]
+\]
+
+Since $G(z)$ is a fraction that has a greater polynomial degree in the denominator than in the numerator it can be inverted using the method of the residuals. In our case, using the linearity and shifting properties will produce a very long and ugly expression of the sequence $x[n]$. Because of this, we prefer performing the long division of $B(z)$ into $A(z)$:
+
+\begin{tabular}{r|cllllll}
+&\qquad&$-3z^{-2}$&$+1$&&&&\\
+\cline{2-8}
+\\
+$-\frac{1}{16}z^{-3}+\frac{1}{2}z^{-2}-\frac{5}{4}z^{-1}+1$&&$\frac{3}{16}z^{-5}$&$-\frac{3}{2}z^{-4}$&$+\frac{59}{16}z^{-3}$&$-\frac{5}{2}z^{-2}$&$-\frac{9}{4}z^{-1}$&$+2$\\
+&&$\frac{3}{16}z^{-5}$&$-\frac{3}{2}z^{-4}$&$+\frac{15}{4}z^{-3}$&$-3z^{-2}$&&\\
+\cline{3-8}
+&&&&$-\frac{1}{16}z^{-3}$&$+\frac{1}{2}z^{-2}$&$-\frac{9}{4}z^{-1}$&$+2$\\
+&&&&$-\frac{1}{16}z^{-3}$&$+\frac{1}{2}z^{-2}$&$-\frac{5}{4}z^{-1}$&$+1$\\
+\cline{5-8}
+&&&&&&$-z^{-1}$&$+1$\\
+\end{tabular}
+
+So we obtained that:
+
+\[
+\begin{array}{lll}
+Q(z)&=&1-3z^{-2}\\
+R(z)&=&1-z^{-1}\\
+\end{array}
+\]
+
+and then using Eq.~\ref{longdivision}:
+
+\begin{equation}\label{eq2}
+X(z)=\underbrace{1-3z^{-2}}_{Q(z)}+\underbrace{\frac{1-z^{-1}}{1-\frac{5}{4}z^{-1}+\frac{1}{2}z^{-2}-\frac{1}{16}z^{-3}}}_{P(z)=\frac{B(z)}{A(z)}}
+\end{equation}
+
+the rational function $P(z)$ is called a \emph{proper fraction} because the order of the denominator is greater than the order of the numerator. The term $Q(z)$ is already directly invertible (using the shifting property of the Z-transform):
+
+\[
+q[n]=Z^{-1}\left\{Q(z)\right\}=Z^{-1}\left\{1-3z^{-2}\right\}=\delta[n]-3\delta[n-2]
+\]
+
+The fraction $P(z)$ has to be further manipulated using fractional expansion which first requires that we compute the poles of $Q(z)$. The poles of $Q(z)$ are just the values of $z$ that make $Q(z)$ equal to infinity, which are the same as the values of $z$ that make the denominator $A(z)$ equal to zero. Because $A(z)$ is a third order polynomial, it could be complicated to find its three roots without a computer. However, we can use the hint given in the problem description that says that $p_1=\frac{1}{4}$ is one of those three roots. This means that:
+
+\[
+A(z)=(1-p_{1}z^{-1})(1-p_{2}z^{-1})(1-p_{3}z^{-1})\Rightarrow (1-p_{2}z^{-1})(1-p_{3}z^{-1})=\frac{A(z)}{1-p_1}
+\]
+
+So we use long division to obtain the result of dividing $A(z)$ by $(1-\frac{1}{4}z^{-1})$:
+
+\begin{tabular}{r|cllllll}
+&\qquad&$\frac{1}{4}z^{-2}$&$-z^{-1}$&$+1$&&&\\
+\cline{2-8}
+\\
+$-\frac{1}{4}z^{-1}+1$&&$-\frac{1}{16}z^{-3}$&$+\frac{1}{2}z^{-2}$&$-\frac{5}{4}z^{-1}$&$+1$&&\\
+&&$-\frac{1}{16}z^{-3}$&$+\frac{1}{4}z^{-2}$&&&&\\
+\cline{3-8}
+&&&$\frac{1}{4}z^{-2}$&$-\frac{5}{4}z^{-1}$&$+1$&&\\
+&&&$\frac{1}{4}z^{-2}$&$-z^{-1}$&$+1$&&\\
+\cline{4-8}
+&&&&$-\frac{1}{4}z^{-1}$&$+1$&&\\
+&&&&$-\frac{1}{4}z^{-1}$&$+1$&&\\
+\cline{5-8}
+&&&&&$0$&&\\
+\end{tabular}
+
+As expected, the remainder of the division is zero and we can write that:
+
+\[
+\frac{A(z)}{1-p_1}=(1-p_{2}z^{-1})(1-p_{3}z^{-1})=\frac{1}{4}z^{-2}-z^{-1}+1
+\]
+
+So $p_1$ and $p_2$ can be easily obtained by finding the roots of the second order polynomial $\frac{1}{4}z^{-2}-z^{-1}+1$, which happen to be: $p_2=p_3=\frac{1}{2}$. Now we can rewrite the term $P(z)$ in Eq.~\ref{eq2} as:
+
+\[
+P(z)=\frac{1-z^{-1}}{1-\frac{5}{4}z^{-1}+\frac{1}{2}z^{-2}-\frac{1}{16}z^{-3}}=\frac{1-z^{-1}}{(1-\frac{1}{2}z^{-1})^2(1-\frac{1}{4}z^{-1})}
+\]
+
+When we get an expression like the one above we say that we have two poles. One of them is simple ($p_1=\frac{1}{4}$) and the other is multiple ($p_{2}=\frac{1}{2}$) with multiplicity equal to 2. Now can use the method of the residuals to rewrite $P(z)$ as:
+
+\begin{equation}\label{fractionalexp}
+P(z)=\frac{a}{(1-\frac{1}{4}z^{-1})}+\frac{b_1}{(1-\frac{1}{2}z^{-1})}+\frac{b_2}{(1-\frac{1}{2}z^{-1})^2}
+\end{equation}
+
+where $a$ is the residual corresponding to the single pole $p_0=\frac{1}{4}$ and therefore is obtained with the formula:
+
+\[
+a = \left.\left[(1-p_1z^{-1})P(z)\right]\right|_{z=p_1}=\left.\frac{1-z^{-1}}{(1-\frac{1}{2}z^{-1})^2}\right|_{z=\frac{1}{4}}=-3
+\]
+
+while the residuals $b_{1}$ and $b_{2}$ correspond to the pole $p_2=\frac{1}{2}$ with multiplicity $L=2$ and, therefore, have to be obtained using the following formula:
+
+\[
+b_{i} = \frac{1}{(L-i)!(-p)^{L-i}}\left[\frac{d^{L-i}}{d(z^{-1})^{L-i}}\left[(1-p_iz^{-1})^LP(z)\right]\right]_{z=p}
+\]
+
+where $p$ is the value of the pole, $L$ is the multiplicity and $\frac{d^k}{d(z^{-1})^k}$ denotes derivative of order $k$ with respect to variable $z^{-1}$. So, in our case we have that:
+
+\[
+b_2=\left[(1-p_2)^2P(z)\right]_{z=p_2}=\left[\frac{1-z^{-1}}{1-\frac{1}{4}z^{-1}}\right]_{z=\frac{1}{2}}=-2
+\]
+
+\[
+b_1=\frac{1}{(-\frac{1}{2})}\left[\frac{d}{d(z^{-1})}\left[(1-p_2)^2P(z)\right]\right]_{z=p_2}=-2\left[\frac{-1}{1-\frac{1}{4}z^{-1}}+\frac{1-z^{-1}}{4(1-\frac{1}{4}z^{-1})^2}\right]_{z=\frac{1}{2}}=6
+\]
+
+So using the fractional expansion of $P(z)$ in Eq.~\ref{fractionalexp} we can write Eq.~\ref{eq2} as:
+
+
+\begin{equation}\label{lasteq}
+X(z)=1-3z^{-2}-\frac{3}{(1-\frac{1}{4}z^{-1})}+\frac{6}{(1-\frac{1}{2}z^{-1})}-\frac{2}{(1-\frac{1}{2}z^{-1})^2}
+\end{equation}
+
+Now X(z) can be directly inverted using the properties of the Z-transform and the elementary Z-transform pairs in Table~\ref{commonz}. First:
+
+\[
+\textrm{Z}^{\textrm{inv}}\left\{1-3z^{2}\right\}=\delta[n]-3\delta[n-3]\\
+\]
+
+where $\textrm{Z}^{\textrm{inv}}$ denotes inverse Z transform. Then, because the ROC of X(z) is lower-bounded by the pole $p_1=\frac{1}{4}$ the inverse of the following term must be a causal sequence:
+
+\[
+\textrm{Z}^{\textrm{inv}}\left\{\frac{-3}{(1-\frac{1}{4}z^{-1})}\right\}=-3\left(\frac{1}{4}\right)^n\mu[n]
+\]
+
+By contrary, the double pole $p_2=\frac{1}{2}$ defines the upper bound of the ROC which means that the inverse of the last two terms in Eq.~\ref{lasteq} must be an anticausal sequence:
+
+\[
+\textrm{Z}^{\textrm{inv}}\left\{\frac{6}{(1-\frac{1}{2}z^{-1})}\right\}=-6\left(\frac{1}{2}\right)^n\mu[-n-1]
+\]
+
+and by the shifting property of the Z-transform we have that:
+
+\[
+\textrm{Z}^{\textrm{inv}}\left\{\frac{-2}{(1-\frac{1}{2}z^{-1})^2}\right\}=-4 z\cdot \textrm{Z}^{\textrm{inv}}\left\{z\underbrace{\frac{\frac{1}{2}z^{-1}}{(1-\frac{1}{2}z^{-1})^2}}_{V(z)}\right\}=-4v[n+1]
+\]
+
+where:
+
+\[
+v[n] =  \textrm{Z}^{\textrm{inv}}\left\{\frac{\frac{1}{2}z^{-1}}{(1-\frac{1}{2}z^{-1})^2}\right\}=-n\left(\frac{1}{2}\right)^n\mu[-n-1]
+\]
+
+so then:
+
+\[
+\textrm{Z}^{\textrm{inv}}\left\{\frac{-2}{(1-\frac{1}{2}z^{-1})^2}\right\}=-4v[n+1]=4(n+1)\left(\frac{1}{2}\right)^{(n+1)}\mu[-n-2]
+\]
+
+and putting all the terms together we reach the result:
+
+\[
+x[n] =\delta[n]-3\delta[n-3]-3\left(\frac{1}{4}\right)^n\mu[n]-6\left(\frac{1}{2}\right)^n\mu[-n-1]+2(n+1)\left(\frac{1}{2}\right)^{n}\mu[-n-2]
+\]
+
+\end{document}
